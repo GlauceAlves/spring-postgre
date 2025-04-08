@@ -26,7 +26,10 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<Order>();
+	
 	public User() {
 		
 	}
@@ -81,7 +84,10 @@ public class User implements Serializable{
 	}
 
 
-
+	public List<Order> getOrders() {
+		return orders;
+	}
+ 
 
 
 	@Override
