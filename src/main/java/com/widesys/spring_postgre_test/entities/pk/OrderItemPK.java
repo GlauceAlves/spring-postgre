@@ -3,6 +3,7 @@ package com.widesys.spring_postgre_test.entities.pk;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.widesys.spring_postgre_test.entities.Order;
 import com.widesys.spring_postgre_test.entities.Product;
 
@@ -31,6 +32,7 @@ public class OrderItemPK  implements Serializable {
 		this.order = order;
 	}
 	
+
 	public Product getProduct() {
 		return product;
 	}
