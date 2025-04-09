@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.widesys.spring_postgre_test.entities.Category;
 import com.widesys.spring_postgre_test.entities.Order;
+import com.widesys.spring_postgre_test.entities.OrderItem;
 import com.widesys.spring_postgre_test.entities.Product;
 import com.widesys.spring_postgre_test.entities.User;
 import com.widesys.spring_postgre_test.entities.enuns.OrderStatusEnum;
 import com.widesys.spring_postgre_test.repositories.CategoryRepository;
+import com.widesys.spring_postgre_test.repositories.OrderItemRepository;
 import com.widesys.spring_postgre_test.repositories.OrderRepository;
 import com.widesys.spring_postgre_test.repositories.ProductRepository;
 import com.widesys.spring_postgre_test.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private  ProductRepository productRepository;
+	
+	@Autowired
+	private  OrderItemRepository ordeItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,6 +72,13 @@ public class TestConfig implements CommandLineRunner {
 	
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		ordeItemRepository.saveAll(Arrays.asList(oi1 ,oi2, oi3, oi4));
 	}
 	
 

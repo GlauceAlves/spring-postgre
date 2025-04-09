@@ -3,6 +3,7 @@ package com.widesys.spring_postgre_test.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.widesys.spring_postgre_test.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -15,10 +16,11 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     @EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	private Integer quantity;
 	private Double price;
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
@@ -29,7 +31,7 @@ public class OrderItem implements Serializable {
 	
 	
 	public Product getProduct() {
-		return getProduct();
+		return id.getProduct();
 	}
 	
 	public void setProduct(Product product) {
