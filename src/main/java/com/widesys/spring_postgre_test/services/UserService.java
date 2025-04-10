@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.widesys.spring_postgre_test.entities.User;
 import com.widesys.spring_postgre_test.repositories.UserRepository;
+import com.widesys.spring_postgre_test.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> objUser =  userRepository.findById(id);
-		return objUser.get();
+		return objUser.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 
 	public User insert(User obj) {
