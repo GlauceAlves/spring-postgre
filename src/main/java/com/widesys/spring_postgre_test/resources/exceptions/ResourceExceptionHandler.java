@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.widesys.spring_postgre_test.services.exceptions.DatabaseException;
 import com.widesys.spring_postgre_test.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,5 +22,13 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(Instant.now(), status.value(), error , e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}	
+	
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandardError> dataBase(DatabaseException e, HttpServletRequest request){
+		String error= "Data base error ";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError(Instant.now(), status.value(), error , e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
 	
 }
