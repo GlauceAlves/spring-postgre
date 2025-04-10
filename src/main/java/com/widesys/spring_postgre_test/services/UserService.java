@@ -13,6 +13,8 @@ import com.widesys.spring_postgre_test.repositories.UserRepository;
 import com.widesys.spring_postgre_test.services.exceptions.DatabaseException;
 import com.widesys.spring_postgre_test.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	@Autowired
@@ -43,9 +45,14 @@ public class UserService {
 	}
 	
 	public User updateById(Long id, User obj) {
+		try {
 		User entity = userRepository.getReferenceById(id);
 	    updateData(entity, obj);
-		return userRepository.save(entity);
+	    return userRepository.save(entity);
+		}catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		
 	}
 	
 	public void updateData(User entity, User obj) {
